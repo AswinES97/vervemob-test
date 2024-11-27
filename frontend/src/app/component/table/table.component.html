@@ -1,0 +1,30 @@
+<div class="card flex justify-center">
+  <p-table [value]="userData" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Password</th>
+        <th>City</th>
+        <th>Date of Birth</th>
+        <th>Edit</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-userData>
+      <tr *ngIf="userId == userData._id;">
+        <td><input type="text" placeholder={{userData.name}}></td>
+        <td><input type="text" placeholder={{userData.password}}></td>
+        <td><input type="text" placeholder={{userData.city}}></td>
+        <td><input type="text" placeholder={{userData.dob}}></td>
+        <td><button (click)="saveUser()" class="p-3 bg-green-400 rounded-lg">Save</button></td>
+
+      </tr>
+      <tr>
+        <td>{{ userData.name }}</td>
+        <td>{{ userData.password }}</td>
+        <td>{{ userData.city }}</td>
+        <td>{{ userData.dobs }}</td>
+        <td><button (click)="updateUser(userData._id)" class="p-3 bg-red-400 rounded-lg">Edit</button></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
