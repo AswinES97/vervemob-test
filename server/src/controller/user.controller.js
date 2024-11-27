@@ -11,8 +11,8 @@ const allUserData = async (req, res) => {
   }
 };
 
-const updateUserData = async (req, res) => {
-  const { _id, name, city, dob, password } = req.body;
+const updateUserData = async (req, res) => {  
+  const { _id, name, city, dob, password } = req.body.userData;
 
   try {
     await userModel.updateOne(

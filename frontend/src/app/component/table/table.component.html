@@ -10,20 +10,57 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-userData>
-      <tr *ngIf="userId == userData._id;">
-        <td><input type="text" placeholder={{userData.name}}></td>
-        <td><input type="text" placeholder={{userData.password}}></td>
-        <td><input type="text" placeholder={{userData.city}}></td>
-        <td><input type="text" placeholder={{userData.dob}}></td>
-        <td><button (click)="saveUser()" class="p-3 bg-green-400 rounded-lg">Save</button></td>
-
-      </tr>
       <tr>
-        <td>{{ userData.name }}</td>
-        <td>{{ userData.password }}</td>
-        <td>{{ userData.city }}</td>
-        <td>{{ userData.dobs }}</td>
-        <td><button (click)="updateUser(userData._id)" class="p-3 bg-red-400 rounded-lg">Edit</button></td>
+        <td>
+          <input #name
+            class="text-black"
+            type="text"
+            value="{{ userData.name }}"
+            [disabled]="isInputDisabled(userData._id)"
+          />
+        </td>
+        <td>
+          <input #password
+            type="text"
+            value="{{ userData.password }}"
+            [disabled]="isInputDisabled(userData._id)"
+          />
+        </td>
+        <td>
+          <input #city
+            type="text"
+            value="{{ userData.city }}"
+            [disabled]="isInputDisabled(userData._id)"
+          />
+        </td>
+        <td>
+          <input #dob
+            type="text"
+            value="{{ userData.dob | date : 'dd/MM/yyyy' }}"
+            [disabled]="isInputDisabled(userData._id)"
+          />
+        </td>
+        <td *ngIf="isInputDisabled(userData._id); else elseBlock">
+          <button
+            (click)="editUser(userData._id)"
+            class="p-3 bg-red-400 rounded-lg"
+          >
+            Edit
+          </button>
+        </td>
+        <ng-template #elseBlock>
+          <td>
+            <button (click)="saveUser({
+              name:name.value,
+              password: password.value,
+              city: city.value,
+              dob: dob.value
+              })" class="p-3 bg-green-400 rounded-lg">
+              Save
+            </button>
+          </td>
+        </ng-template>
+        
       </tr>
     </ng-template>
   </p-table>
